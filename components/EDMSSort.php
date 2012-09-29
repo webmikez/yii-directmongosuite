@@ -41,69 +41,7 @@ class EDMSSort extends CSort {
         	$criteria->setSort($sort);
         }
     }
-    /**
-     * Set the Request Variable to use.
-     * @param string|array|function $name Usually or 'GET','POST','REQUEST', but can also be a json_encoded string or
-     * it can also accept an array, or alternatively if $name is_callable it will call it and use the result.
-     *
-     *
-     */
-    protected function setRequestVar($name = null) {
-        if (empty($name)) {
-            $name = $this->requestVar;
-        }
-        // Its the name of a var like _GET,_REQUEST,_POST
-        if (is_string($name)) {
-            
-            switch ($name) {
-                case '_GET':
-                case 'GET':
-                    $this->_reqParams = & $_GET;
-                    break;
 
-                case '_POST':
-                case 'POST':
-                    $this->_reqParams = & $_POST;
-                    break;
-
-                case '_REQUEST':
-                case 'REQUEST':
-                    $this->_reqParams = & $_REQUEST;
-                    break;
-
-                default:
-                    if ($name[0] == '{') {
-                        $this->_reqParams = json_decode($name, true);
-                    } else {
-                        $this->_reqParams = & $_GET;
-                    }
-            }
-        } else if (is_array($name)) {
-            $this->_reqParams = $name;
-        } else if (is_callable($name)) {
-            $this->_reqParams = call_user_func($name);
-        }
-    }
-    /**
-     * Get a Request Parameter or if $name is null the whole request array.
-     * @param string $name The name of the request variable to get, usually $this->sortVar
-     * @return string the value of the request variable or false if not found.
-     *
-     *
-     */
-    public function getRequestVar($name = null) {
-        if (!isset($this->_reqParams)) {
-            $this->setRequestVar();
-        }
-        if (is_null($name)) {
-            
-            return $this->_reqParams;
-        } else if (isset($this->_reqParams[$name])) {
-            
-            return $this->_reqParams[$name];
-        } else 
-        return false;
-    }
     /**
      * Modified from cSort to use EDMSSort::getRequestVar instead of assuming $_GET.
      *
@@ -261,4 +199,70 @@ class EDMSSort extends CSort {
 			return $orders;
 		}
 	}
+
+
+
+        /**
+     * Set the Request Variable to use.
+     * @param string|array|function $name Usually or 'GET','POST','REQUEST', but can also be a json_encoded string or
+     * it can also accept an array, or alternatively if $name is_callable it will call it and use the result.
+     *
+     *
+     */
+    protected function setRequestVar($name = null) {
+        if (empty($name)) {
+            $name = $this->requestVar;
+        }
+        // Its the name of a var like _GET,_REQUEST,_POST
+        if (is_string($name)) {
+            
+            switch ($name) {
+                case '_GET':
+                case 'GET':
+                    $this->_reqParams = & $_GET;
+                    break;
+
+                case '_POST':
+                case 'POST':
+                    $this->_reqParams = & $_POST;
+                    break;
+
+                case '_REQUEST':
+                case 'REQUEST':
+                    $this->_reqParams = & $_REQUEST;
+                    break;
+
+                default:
+                    if ($name[0] == '{') {
+                        $this->_reqParams = json_decode($name, true);
+                    } else {
+                        $this->_reqParams = & $_GET;
+                    }
+            }
+        } else if (is_array($name)) {
+            $this->_reqParams = $name;
+        } else if (is_callable($name)) {
+            $this->_reqParams = call_user_func($name);
+        }
+    }
+    /**
+     * Get a Request Parameter or if $name is null the whole request array.
+     * @param string $name The name of the request variable to get, usually $this->sortVar
+     * @return string the value of the request variable or false if not found.
+     *
+     *
+     */
+    public function getRequestVar($name = null) {
+        if (!isset($this->_reqParams)) {
+            $this->setRequestVar();
+        }
+        if (is_null($name)) {
+            
+            return $this->_reqParams;
+        } else if (isset($this->_reqParams[$name])) {
+            
+            return $this->_reqParams[$name];
+        } else 
+        return false;
+    }
 }
