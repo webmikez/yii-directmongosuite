@@ -1,0 +1,3 @@
+[submodule "tests/vendor/YiiMongoDbSuite"]
+	path = tests/vendor/YiiMongoDbSuite
+	url = git://github.com/teamunity/YiiMongoDbSuite.git
