@@ -65,7 +65,7 @@ class EDMSQuery
 	 * EDMSQuery::instance()
 	 *
 	 * @param mixed $collectionName
-	 * @return
+	 * @return EDMSQuery
 	 */
 	public static function instance($collectionName)
 	{
@@ -717,6 +717,20 @@ class EDMSQuery
 		$options = array_merge($options, array('upsert'=>true));
 		return $this->getCollection()->update($criteria,$values,$options);
 	}
+
+    /**
+     * Updates an existing document by _id or inserts a new document, depending on its document parameter.
+     *
+     * db.collection.save( { _id: new MongoId('12345'), item: "book", qty: 40 } )
+     *
+     * @param array|object $values
+     * @param array $options
+     * @return bool
+     */
+    public function save($values, $options=array())
+    {
+        return $this->getCollection()->save($values, $options);
+    }
 
 
 	/**
