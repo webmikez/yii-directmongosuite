@@ -127,7 +127,7 @@ class EDMSConnection extends CApplicationComponent
 				if (!isset($this->server))
 					$this->server = 'mongodb://localhost:27017';
 
-				self::$_mongo = new Mongo($this->server, $options);
+				self::$_mongo = new MongoClient($this->server, $options);
 
 			}
 			catch(MongoConnectionException $e)
