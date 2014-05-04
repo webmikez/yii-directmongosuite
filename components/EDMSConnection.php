@@ -50,7 +50,7 @@ class EDMSConnection extends CApplicationComponent
 	 */
 	public $options = array(
 						  'connect' => true,
-						  'connectTimeoutMS' => 5000
+						  'connectTimeoutMS' => 5000,
 						  'replicaSet' => null,
 					      'username' => null,
 					      'password' => null,
